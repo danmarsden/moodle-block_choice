@@ -1,0 +1,38 @@
+<input type="hidden" name="instance" size="30" value="<?php echo isset($this->config->choiceid)?$this->config->choiceid:''; ?>" ID="Hidden2">
+
+<table cellpadding="9" cellspacing="0">
+<tr valign="top">
+    <td align="right"><?php print_string('configtitle', 'block_choice_block'); ?>:</td>
+    <td><input type="text" name="title" size="30" value="<?php echo isset($this->config->title)?$this->config->title:''; ?>" />
+    <?php print_string('blocktitleoptional', 'block_choice_block'); ?>
+    </td>
+</tr>
+<tr>
+<td align="right"><?php print_string('selectchoice', 'block_choice_block');?>:</td>
+<td>
+    <select name="choiceid">
+    <option value=''></option>
+    <?php 
+    Global $COURSE;
+
+    $choices = get_records("choice", "course", $COURSE->id);
+     foreach ($choices as $ch) {     
+        echo "<option value='". $ch->id ."'";
+        if (isset($this->config->choiceid) && $ch->id==$this->config->choiceid) {
+        echo " selected='selected'";
+        }
+        echo ">".$ch->name ."</option>";
+     }
+    ?>    
+    </select> 
+</td>
+</tr>
+
+
+<tr>
+    <td colspan="3" align="center">
+    <input type="submit" value="<?php print_string('savechanges') ?>" /></td>
+</tr>
+
+</table>
+
